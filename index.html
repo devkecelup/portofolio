@@ -6,6 +6,7 @@
     <title>Portofolio Kuroki - Video Editor & Web Developer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;700;800&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             theme: {
@@ -16,15 +17,11 @@
                         'signature': ['"Nothing You Could Do"', 'cursive'],
                     },
                     colors: {
-                        // Palette Nuansa Biru Profesional mas dipertahankan
+                        // Palette Nuansa Biru Profesional Kustom
                         accent: '#5fa8d3',
                         accentHover: '#62b6cb',
                         dark: '#1b4965', 
-                        
-                        // PERUBAHAN DI SINI: Background utama jadi putih netral
-                        light: '#F8FAFC', // Off-white (Putih Tulang Netral)
-                        
-                        // Warna biru muda mas digeser jadi warna surface/kartu
+                        light: '#F8FAFC', // Background bersih agar warna biru menonjol
                         surfaceBlue: '#cae9ff', 
                         lightAlt: '#bee9e8', 
                         card: '#FFFFFF',
@@ -37,11 +34,12 @@
             }
         }
     </script>
+    
     <style>
-        /* 3D Scroll Animations - Animasi Baru yang Lebih Profesional */
+        /* 3D Scroll Animations - Halus dan Profesional */
         .item-3d {
             opacity: 0;
-            transform: translateY(40px) scale(0.98);
+            transform: translateY(30px) scale(0.98);
             transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
                         transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             will-change: opacity, transform;
@@ -54,7 +52,7 @@
         /* Text Reveal Animations */
         .text-reveal {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(20px);
             transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
                         transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             will-change: opacity, transform;
@@ -77,11 +75,11 @@
             transform: scale(1.05);
         }
 
-        /* Per Letter Animations (Efek Huruf Diperbaiki agar tidak terpotong) */
+        /* Per Letter Animations (Aman untuk H1) */
         .letter-reveal {
             display: inline-block;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(15px);
             transition: opacity 0.5s ease-out, transform 0.5s ease-out;
             will-change: opacity, transform;
         }
@@ -90,7 +88,7 @@
             transform: translateY(0);
         }
 
-        /* Hide scrollbar for clean look */
+        /* Hide scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: theme('colors.light'); }
         ::-webkit-scrollbar-thumb { background: theme('colors.dark'); border-radius: 10px; }
@@ -100,260 +98,337 @@
         .shape-leaf { border-radius: 6rem 1rem 6rem 1rem; }
         .shape-arch { border-radius: 6rem 6rem 1rem 1rem; }
         .shape-pill { border-radius: 6rem; }
-
-        /* Reticle crosshair for aesthetic */
-        .reticle {
-            position: absolute;
-            width: 24px; height: 24px;
-            pointer-events: none;
-        }
-        .reticle::before, .reticle::after {
-            content: ''; position: absolute; background: theme('colors.dark');
-        }
-        .reticle::before { top: 50%; left: 0; right: 0; height: 1px; transform: translateY(-50%); }
-        .reticle::after { left: 50%; top: 0; bottom: 0; width: 1px; transform: translateX(-50%); }
-        .reticle-circle {
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 12px; height: 12px;
-            border: 1px solid theme('colors.dark');
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
+        
+        /* SVG Background Patterns */
+        .bg-dots {
+            background-image: radial-gradient(theme('colors.dark') 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.05;
         }
     </style>
 </head>
-<body class="bg-light text-dark font-body antialiased overflow-x-hidden">
+<body class="bg-light text-dark font-body antialiased overflow-x-hidden relative">
 
-    <!-- DESKTOP TOP NAV (Hidden on Mobile) -->
-    <nav class="hidden md:flex fixed top-0 left-0 right-0 z-50 px-12 py-6 items-center justify-between bg-light/80 backdrop-blur-md border-b border-dark/10 transition-all duration-300">
-        <div class="font-display font-black text-3xl text-dark tracking-tighter cursor-pointer" onclick="smoothScroll(event, 'home')">Portofolio.</div>
+    <div class="fixed inset-0 pointer-events-none bg-dots z-0"></div>
+
+    <nav class="hidden md:flex fixed top-0 left-0 right-0 z-50 px-12 py-6 items-center justify-between bg-light/80 backdrop-blur-md border-b border-dark/5 transition-all duration-300">
+        <div class="font-display font-black text-2xl text-dark tracking-tighter cursor-pointer" onclick="smoothScroll(event, 'home')">Portofolio.</div>
         <div class="flex gap-4">
-            <a href="#home" onclick="smoothScroll(event, 'home')" class="desktop-nav-link text-sm font-semibold uppercase tracking-widest text-dark hover:text-accent transition-colors active">Home</a>
-            <a href="#about" onclick="smoothScroll(event, 'about')" class="desktop-nav-link text-sm font-semibold uppercase tracking-widest text-dark hover:text-accent transition-colors">About</a>
-            <a href="#portfolio" onclick="smoothScroll(event, 'portfolio')" class="desktop-nav-link text-sm font-semibold uppercase tracking-widest text-dark hover:text-accent transition-colors">Portfolio</a>
-            <a href="#services" onclick="smoothScroll(event, 'services')" class="desktop-nav-link text-sm font-semibold uppercase tracking-widest text-dark hover:text-accent transition-colors">Services</a>
+            <a href="#home" onclick="smoothScroll(event, 'home')" class="desktop-nav-link text-xs font-semibold uppercase tracking-widest text-dark hover:text-accent transition-colors active">Home</a>
+            <a href="#about" onclick="smoothScroll(event, 'about')" class="desktop-nav-link text-xs font-semibold uppercase tracking-widest text-dark hover:text-accent transition-colors">About</a>
+            <a href="#clients" onclick="smoothScroll(event, 'clients')" class="desktop-nav-link text-xs font-semibold uppercase tracking-widest text-dark hover:text-accent transition-colors">Clients</a>
+            <a href="#portfolio" onclick="smoothScroll(event, 'portfolio')" class="desktop-nav-link text-xs font-semibold uppercase tracking-widest text-dark hover:text-accent transition-colors">Portfolio</a>
+            <a href="#services" onclick="smoothScroll(event, 'services')" class="desktop-nav-link text-xs font-semibold uppercase tracking-widest text-dark hover:text-accent transition-colors">Services</a>
+            <a href="#contact" onclick="smoothScroll(event, 'contact')" class="desktop-nav-link text-xs font-semibold uppercase tracking-widest text-dark hover:text-accent transition-colors">Contact</a>
         </div>
     </nav>
 
-    <!-- MOBILE FLOATING BOTTOM NAV (Hidden on Desktop) -->
     <nav class="md:hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 w-max transition-transform duration-300" id="bottomNav">
-        <div class="bg-white/40 backdrop-blur-lg border border-white/50 shadow-2xl rounded-full px-6 py-3 flex items-center gap-6">
-            <a href="#home" onclick="smoothScroll(event, 'home')" class="mobile-nav-link bg-white/60 text-accent scale-110 text-dark hover:text-accent hover:scale-110 transition-all p-2 rounded-full hover:bg-white/50" aria-label="Home">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+        <div class="bg-white/60 backdrop-blur-lg border border-white shadow-2xl rounded-full px-4 py-3 flex items-center gap-2 sm:gap-4">
+            <a href="#home" onclick="smoothScroll(event, 'home')" class="mobile-nav-link bg-white/80 text-accent scale-110 text-dark hover:text-accent hover:scale-110 transition-all p-2 rounded-full hover:bg-white" aria-label="Home">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
             </a>
-            <a href="#about" onclick="smoothScroll(event, 'about')" class="mobile-nav-link text-dark hover:text-accent hover:scale-110 transition-all p-2 rounded-full hover:bg-white/50" aria-label="About">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+            <a href="#about" onclick="smoothScroll(event, 'about')" class="mobile-nav-link text-dark hover:text-accent hover:scale-110 transition-all p-2 rounded-full hover:bg-white" aria-label="About">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
             </a>
-            <a href="#portfolio" onclick="smoothScroll(event, 'portfolio')" class="mobile-nav-link text-dark hover:text-accent hover:scale-110 transition-all p-2 rounded-full hover:bg-white/50" aria-label="Portfolio">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+            <a href="#portfolio" onclick="smoothScroll(event, 'portfolio')" class="mobile-nav-link text-dark hover:text-accent hover:scale-110 transition-all p-2 rounded-full hover:bg-white" aria-label="Portfolio">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
             </a>
-            <a href="#services" onclick="smoothScroll(event, 'services')" class="mobile-nav-link text-dark hover:text-accent hover:scale-110 transition-all p-2 rounded-full hover:bg-white/50" aria-label="Services">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            <a href="#services" onclick="smoothScroll(event, 'services')" class="mobile-nav-link text-dark hover:text-accent hover:scale-110 transition-all p-2 rounded-full hover:bg-white" aria-label="Services">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            </a>
+            <a href="#contact" onclick="smoothScroll(event, 'contact')" class="mobile-nav-link text-dark hover:text-accent hover:scale-110 transition-all p-2 rounded-full hover:bg-white" aria-label="Contact">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
             </a>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <header id="home" class="relative min-h-screen flex items-center justify-center pt-20 md:pt-32 pb-20 px-6 md:px-12 overflow-hidden item-3d">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 w-full max-w-screen-2xl relative z-10">
+    <header id="home" class="relative min-h-screen flex items-center justify-center pt-20 pb-16 px-6 md:px-12 overflow-hidden item-3d z-10">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 w-full max-w-screen-xl relative z-10">
             
             <!-- Left Title Area -->
-            <div class="md:col-span-7 flex flex-col justify-center text-center md:text-left mt-10 md:mt-0 cursor-pointer">
-                <h1 class="split-text text-reveal font-display font-black text-5xl sm:text-6xl md:text-7xl lg:text-[7rem] leading-none tracking-tighter uppercase text-dark mb-6">
+            <div class="md:col-span-7 flex flex-col justify-center text-center md:text-left mt-10 md:mt-0 relative">
+                <!-- Decorative SVG Asterisk -->
+                <svg class="absolute -top-10 -left-10 w-20 h-20 text-accent opacity-50 animate-spin-slow" style="animation-duration: 20s;" viewBox="0 0 100 100" fill="currentColor">
+                    <path d="M50 0 C50 30 70 50 100 50 C70 50 50 70 50 100 C50 70 30 50 0 50 C30 50 50 30 50 0 Z"/>
+                </svg>
+
+                <h1 class="split-text text-reveal font-display font-black text-5xl sm:text-6xl md:text-7xl lg:text-[6rem] leading-[0.9] tracking-tighter uppercase text-dark mb-6 z-10">
                     visual<br>poetry
                 </h1>
-                <div class="flex flex-col sm:flex-row gap-6 sm:gap-8 items-center sm:items-start md:items-center ml-0 md:ml-4">
-                    <p class="text-reveal max-w-xs text-sm font-medium text-dark/70 leading-relaxed text-center sm:text-left" style="transition-delay: 0.1s;">
+                
+                <div class="flex flex-col sm:flex-row gap-6 sm:gap-8 items-center sm:items-start md:items-center mt-2">
+                    <p class="text-reveal max-w-sm text-sm font-medium text-dark/70 leading-relaxed text-center sm:text-left" style="transition-delay: 0.1s;">
                         Welcome to a visual journey that transcends time and space. Discover the artistry of moments captured in motion.
                     </p>
-                    <div class="flex gap-2 text-reveal" style="transition-delay: 0.2s;">
-                        <div class="w-10 h-10 rounded-full border border-dark/30 flex items-center justify-center text-xs font-mono text-dark font-bold">01</div>
-                        <div class="w-10 h-10 rounded-full border border-dark/30 flex items-center justify-center text-xs font-mono text-dark font-bold">02</div>
-                        <div class="w-10 h-10 rounded-full border border-dark/30 flex items-center justify-center text-xs font-mono text-dark font-bold">03</div>
-                    </div>
                 </div>
             </div>
 
             <!-- Right Hero Image Bento -->
-            <div class="md:col-span-5 relative mt-16 md:mt-0">
-                <div class="shape-leaf bg-surfaceBlue w-full aspect-[4/3] sm:aspect-square md:aspect-[4/5] overflow-hidden relative shadow-xl shadow-dark/10 group cursor-pointer">
+            <div class="md:col-span-5 relative mt-12 md:mt-0">
+                <div class="shape-leaf bg-accent w-full aspect-[4/3] sm:aspect-[4/3] md:aspect-[4/5] overflow-hidden relative shadow-2xl shadow-dark/10 group border-4 border-white">
                     <div class="absolute inset-0 flex items-center justify-center p-8 text-center bg-[url('https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay opacity-80 group-hover:scale-105 transition-transform duration-700"></div>
-                    <h2 class="absolute top-8 left-8 font-signature text-5xl text-dark transform -rotate-6">Creative</h2>
                 </div>
 
-                <!-- Floating Stats (Grid di Mobile) -->
-                <div class="absolute -bottom-12 md:-bottom-20 left-1/2 md:-left-20 transform -translate-x-1/2 md:translate-x-0 bg-white/90 backdrop-blur-md rounded-3xl p-4 sm:p-6 md:p-8 shadow-xl shadow-dark/10 grid grid-cols-2 gap-4 w-[90%] sm:w-[80%] md:w-auto border border-white">
-                    <div class="text-center md:text-left">
-                        <h3 class="font-display font-bold text-2xl sm:text-3xl md:text-5xl text-dark tracking-tighter">+250k</h3>
-                        <p class="text-[10px] sm:text-xs font-medium text-dark/60 mt-1 uppercase tracking-wider">Views on shorts</p>
+                <!-- Floating Stats -->
+                <div class="absolute -bottom-8 md:-bottom-12 left-1/2 md:-left-12 transform -translate-x-1/2 md:translate-x-0 bg-white/95 backdrop-blur-md rounded-3xl p-4 sm:p-5 shadow-xl shadow-dark/10 flex gap-6 w-max border border-dark/5">
+                    <div class="text-center md:text-left px-2">
+                        <h3 class="font-display font-bold text-2xl md:text-3xl text-dark tracking-tighter">+250k</h3>
+                        <p class="text-[10px] font-semibold text-dark/50 mt-0.5 uppercase tracking-wider">Views</p>
                     </div>
-                    <div class="text-center md:text-left">
-                        <h3 class="font-display font-bold text-2xl sm:text-3xl md:text-5xl text-dark tracking-tighter">+800k</h3>
-                        <p class="text-[10px] sm:text-xs font-medium text-dark/60 mt-1 uppercase tracking-wider">Hours Watched</p>
+                    <div class="w-px bg-dark/10"></div>
+                    <div class="text-center md:text-left px-2">
+                        <h3 class="font-display font-bold text-2xl md:text-3xl text-dark tracking-tighter">+800k</h3>
+                        <p class="text-[10px] font-semibold text-dark/50 mt-0.5 uppercase tracking-wider">Hours</p>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- ABOUT SECTION -->
-    <section id="about" class="py-20 md:py-32 px-6 md:px-12 relative overflow-hidden item-3d">
-        <!-- Reticles -->
-        <div class="reticle top-10 left-10 hidden md:block"><div class="reticle-circle"></div></div>
-        <div class="reticle top-10 right-10 hidden md:block"><div class="reticle-circle"></div></div>
-        <div class="reticle bottom-10 left-10 hidden md:block"><div class="reticle-circle"></div></div>
-        <div class="reticle bottom-10 right-10 hidden md:block"><div class="reticle-circle"></div></div>
+    <section id="about" class="py-20 md:py-32 px-6 md:px-12 relative overflow-hidden item-3d z-10">
+        <!-- SVG Decor Geometry -->
+        <svg class="absolute top-20 right-10 w-64 h-64 text-surfaceBlue opacity-40 -z-10" viewBox="0 0 200 200" fill="currentColor">
+            <path d="M 0 100 A 100 100 0 0 0 200 100 A 100 100 0 0 0 0 100" />
+        </svg>
 
-        <!-- Infinite Text Marquee -->
-        <div class="w-[120vw] -ml-[10vw] flex overflow-hidden bg-dark text-light py-4 mb-16 transform -rotate-2">
-            <div class="whitespace-nowrap flex gap-4 animate-[marquee_20s_linear_infinite]">
-                <span class="font-display font-black text-6xl md:text-8xl tracking-tight uppercase">ABOUT . ABOUT . ABOUT . ABOUT . ABOUT . ABOUT . ABOUT . ABOUT . </span>
-                <span class="font-display font-black text-6xl md:text-8xl tracking-tight uppercase">ABOUT . ABOUT . ABOUT . ABOUT . ABOUT . ABOUT . ABOUT . ABOUT . </span>
-            </div>
-        </div>
-
-        <div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div class="relative w-full aspect-square md:aspect-[3/4] shape-arch bg-lightAlt overflow-hidden flex items-center justify-center p-8 shadow-xl shadow-dark/10">
-                <!-- Abstract burst pattern -->
-                <div class="absolute inset-0 opacity-20">
-                    <svg viewBox="0 0 100 100" class="w-full h-full animate-spin-slow" style="animation-duration: 40s;">
-                        <path d="M50 0 L55 45 L100 50 L55 55 L50 100 L45 55 L0 50 L45 45 Z" fill="currentColor" class="text-dark"/>
-                        <path d="M15 15 L40 40 L85 15 L60 40 L85 85 L60 60 L15 85 L40 60 Z" fill="currentColor" class="text-dark"/>
-                    </svg>
-                </div>
+        <div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+            <div class="relative w-full max-w-md mx-auto aspect-square md:aspect-[4/5] shape-arch bg-surfaceBlue overflow-hidden flex items-center justify-center p-8 shadow-xl shadow-dark/10 border-4 border-white">
+                <div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-dark/20 to-transparent"></div>
                 <!-- Developer Image -->
-                <div class="absolute bottom-0 w-[80%] h-[90%] bg-[url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-top grayscale hover:grayscale-0 transition-all duration-500 rounded-t-[5rem]"></div>
+                <div class="absolute bottom-0 w-[85%] h-[95%] bg-[url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-top grayscale hover:grayscale-0 transition-all duration-500 rounded-t-[5rem]"></div>
             </div>
             
-            <div class="cursor-pointer">
-                <h2 class="text-reveal font-signature text-3xl md:text-5xl text-dark/70 mb-4">Hello there,</h2>
-                <h3 class="split-text text-reveal font-display font-bold text-4xl md:text-6xl text-dark mb-6 tracking-tighter" style="transition-delay: 0.1s;">Halo Semua</h3>
-                <p class="text-reveal text-lg text-dark/80 mb-6 leading-relaxed font-medium" style="transition-delay: 0.2s;">
-                    Perkenalkan, nama saya Muhammad Arif Murdiansyah. Saya seorang Editor Video dan Web Developer yang bersemangat. Saya memadukan kreativitas visual dengan logika pemrograman. Terbiasa menggunakan <strong class="text-dark">CapCut Pro</strong> dan <strong class="text-dark">DaVinci Resolve</strong> untuk menciptakan cerita yang dinamis.
-                </p>
-                <p class="text-reveal text-lg text-dark/80 mb-8 leading-relaxed font-medium" style="transition-delay: 0.3s;">
-                    Selain mengedit video pendek maupun rasio 16:9, saya ahli mendesain thumbnail YouTube yang menarik (high CTR). Saya juga mengembangkan website fungsional seperti konverter <strong class="text-dark">Foto to Link</strong> dan <strong class="text-dark">Music Player</strong>.
-                </p>
-                <div class="flex flex-wrap gap-4 text-reveal" style="transition-delay: 0.4s;">
-                    <button onclick="smoothScroll(event, 'portfolio')" class="group flex items-center gap-4 bg-dark text-white px-8 py-4 shape-pill hover:bg-accentHover transition-colors shadow-lg shadow-dark/20">
-                        <span class="font-semibold uppercase tracking-wider text-sm">Lihat Karya Saya</span>
-                        <span class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-2 transition-transform">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            <div>
+                <h2 class="text-reveal font-signature text-2xl md:text-4xl text-accent mb-2">Hello there,</h2>
+                <h3 class="split-text text-reveal font-display font-bold text-3xl md:text-5xl text-dark mb-6 tracking-tight" style="transition-delay: 0.1s;">Halo Semua</h3>
+                
+                <div class="space-y-4 text-dark/70 font-medium text-base md:text-lg leading-relaxed">
+                    <p class="text-reveal" style="transition-delay: 0.2s;">
+                        Perkenalkan, nama saya <strong class="text-dark font-bold">Muhammad Arif Murdiansyah</strong>. Saya seorang Editor Video dan Web Developer yang bersemangat. Saya memadukan kreativitas visual dengan logika pemrograman. 
+                    </p>
+                    <p class="text-reveal" style="transition-delay: 0.3s;">
+                        Terbiasa menggunakan <strong class="text-dark font-bold">CapCut Pro</strong> dan <strong class="text-dark font-bold">DaVinci Resolve</strong> untuk menciptakan cerita yang dinamis. Selain mengedit video pendek maupun rasio 16:9, saya ahli mendesain thumbnail YouTube yang memancing klik (high CTR).
+                    </p>
+                </div>
+                
+                <div class="flex flex-wrap gap-4 mt-8 text-reveal" style="transition-delay: 0.4s;">
+                    <button onclick="smoothScroll(event, 'portfolio')" class="group flex items-center gap-3 bg-dark text-white px-6 py-3 rounded-full hover:bg-accent transition-colors shadow-lg">
+                        <span class="font-semibold uppercase tracking-wider text-xs">Lihat Karya</span>
+                        <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         </span>
                     </button>
-                    <!-- Tambahan Tombol Contact Me yang diminta sebelumnya -->
-                    <button onclick="smoothScroll(event, 'contact')" class="group flex items-center gap-4 border-2 border-dark text-dark px-8 py-4 shape-pill hover:bg-dark hover:text-white transition-colors shadow-lg shadow-dark/5">
-                        <span class="font-semibold uppercase tracking-wider text-sm">Contact Me</span>
+                    <!-- Tombol Contact Me yang diminta -->
+                    <button onclick="smoothScroll(event, 'contact')" class="group flex items-center gap-3 border-2 border-dark text-dark px-6 py-3 rounded-full hover:bg-dark hover:text-white transition-colors">
+                        <span class="font-semibold uppercase tracking-wider text-xs">Contact Me</span>
                     </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PORTFOLIO / BENTO GRID -->
-    <section id="portfolio" class="py-20 md:py-32 px-6 md:px-12 relative item-3d">
-        <div class="max-w-screen-2xl mx-auto w-full relative z-10">
-            <h2 class="split-text text-reveal font-display font-black text-5xl sm:text-6xl md:text-8xl text-center tracking-tighter text-dark mb-16 relative">
-                portfolio <span class="absolute w-3 h-3 bg-accent rounded-full bottom-2 sm:bottom-4 ml-2"></span>
-            </h2>
-
+    <section id="clients" class="py-20 px-6 md:px-12 relative item-3d z-10">
+        <div class="max-w-screen-xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-reveal text-sm font-bold uppercase tracking-widest text-accent mb-4">Kolaborator</p>
+                <h2 class="split-text text-reveal font-display font-black text-4xl md:text-5xl text-dark tracking-tighter">Klien</h2>
+            </div>
+            
             <!-- Bento Grid 2 Kolom di Mobile, 4 di Desktop -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 auto-rows-[160px] sm:auto-rows-[250px] md:auto-rows-[300px]">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 cursor-pointer">
                 
-                <div onclick="openProject('CapCut Pro')" class="cursor-pointer col-span-2 md:col-span-1 rounded-[2rem] md:rounded-t-[6rem] bg-card overflow-hidden group shadow-xl shadow-dark/5 relative">
-                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center group-hover:scale-105 transition-transform duration-700"></div>
-                </div>
-
-                <div onclick="openProject('CapCut Pro')" class="cursor-pointer col-span-1 md:col-span-2 rounded-[2rem] md:rounded-[3rem] bg-white overflow-hidden group shadow-xl shadow-dark/5 flex items-center justify-center p-4 sm:p-8 relative">
-                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-luminosity group-hover:scale-105 transition-transform duration-700"></div>
-                    <div class="relative z-10 text-center">
-                        <svg class="w-8 h-8 sm:w-12 sm:h-12 mx-auto text-dark mb-2 sm:mb-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                        <h3 class="font-display font-bold text-lg sm:text-xl md:text-3xl text-dark">Video Shorts</h3>
+                <!-- Channel 1: Gaming (Bento Span 2 di mobile & desktop) -->
+                <div class="col-span-2 md:col-span-2 bg-lightAlt rounded-[2rem] p-5 md:p-8 flex items-center gap-4 md:gap-6 shadow-xl shadow-dark/5 border border-white group hover:-translate-y-2 transition-transform relative overflow-hidden">
+                    <div class="absolute right-0 top-0 w-32 h-32 bg-white/40 rounded-bl-full -z-0"></div>
+                    <div class="w-14 h-14 md:w-20 md:h-20 rounded-full bg-white flex-shrink-0 flex items-center justify-center shadow-md relative z-10 border-2 border-accent">
+                        <svg class="w-7 h-7 md:w-10 md:h-10 text-dark" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                    </div>
+                    <div class="relative z-10">
+                        <h3 class="font-display font-bold text-lg md:text-3xl text-dark group-hover:text-accent transition-colors">GamingZ ID</h3>
+                        <p class="text-[10px] md:text-sm text-dark/70 font-medium mt-1">2.4M Subscribers • Channel Gaming</p>
                     </div>
                 </div>
 
-                <div onclick="openProject('DaVinci Resolve')" class="cursor-pointer col-span-1 md:col-span-1 rounded-[2rem] md:rounded-[3rem] bg-accentHover overflow-hidden group shadow-xl shadow-dark/5 relative">
-                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay opacity-80 group-hover:scale-105 transition-transform duration-700"></div>
+                <!-- Channel 2: Vlog (Bento Span 1 di mobile, berdampingan) -->
+                <div class="col-span-1 md:col-span-1 bg-white rounded-[2rem] p-4 md:p-8 flex flex-col items-center justify-center text-center shadow-xl shadow-dark/5 border border-dark/5 group hover:-translate-y-2 transition-transform">
+                    <div class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-surfaceBlue flex items-center justify-center mb-3 md:mb-4 text-dark shadow-inner">
+                        <svg class="w-6 h-6 md:w-8 md:h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="font-display font-bold text-base md:text-xl text-dark">DailyVlog ID</h3>
+                    <p class="text-[9px] md:text-xs text-dark/50 font-bold mt-1 uppercase tracking-wider">850K Subs</p>
                 </div>
 
-                <div onclick="openProject('Thumbnails')" class="cursor-pointer col-span-2 md:col-span-2 rounded-[2rem] md:rounded-[3rem] bg-dark overflow-hidden group shadow-xl shadow-dark/5 p-6 sm:p-8 flex flex-col justify-end relative">
-                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center opacity-30 group-hover:scale-105 transition-transform duration-700"></div>
-                    <h3 class="font-display font-bold text-xl sm:text-2xl md:text-4xl text-white relative z-10 mb-1 sm:mb-2">YouTube<br>Thumbnails</h3>
-                    <p class="text-white/70 text-xs sm:text-sm relative z-10">High CTR Designs</p>
+                <!-- Channel 3: Podcast (Bento Span 1 di mobile, berdampingan) -->
+                <div class="col-span-1 md:col-span-1 bg-dark rounded-[2rem] p-4 md:p-8 flex flex-col items-center justify-center text-center shadow-xl shadow-dark/5 border border-dark/5 group hover:-translate-y-2 transition-transform relative overflow-hidden">
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1559523161-0fc0d8b38a7a?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
+                    <div class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/10 flex items-center justify-center mb-3 md:mb-4 text-white shadow-md relative z-10 backdrop-blur-sm">
+                        <svg class="w-6 h-6 md:w-8 md:h-8 text-accentHover" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                    </div>
+                    <h3 class="font-display font-bold text-base md:text-xl text-white relative z-10">Podcast Chill</h3>
+                    <p class="text-[9px] md:text-xs text-white/70 font-bold mt-1 uppercase tracking-wider relative z-10">1.1M Subs</p>
                 </div>
-
-                <div onclick="openProject('Web Dev')" class="cursor-pointer col-span-2 md:col-span-2 shape-leaf bg-lightAlt overflow-hidden group shadow-xl shadow-dark/5 flex items-center justify-center relative min-h-[160px]">
-                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay opacity-50 group-hover:scale-105 transition-transform duration-700"></div>
-                    <h3 class="absolute font-signature text-3xl sm:text-4xl md:text-5xl text-dark transform -rotate-12 z-10">Cinematic</h3>
+                
+                <!-- Channel 4: Music (Bento Span 2 di mobile, full width) -->
+                <div class="col-span-2 md:col-span-4 bg-accent rounded-[2rem] p-5 md:p-8 flex flex-col sm:flex-row items-center justify-between shadow-xl shadow-dark/5 border border-white group hover:-translate-y-2 transition-transform relative overflow-hidden">
+                     <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center opacity-10 mix-blend-multiply"></div>
+                     <div class="flex flex-col sm:flex-row items-center gap-4 md:gap-6 relative z-10 w-full text-center sm:text-left">
+                         <div class="w-14 h-14 md:w-20 md:h-20 rounded-full bg-white flex items-center justify-center flex-shrink-0 shadow-lg">
+                            <svg class="w-7 h-7 md:w-10 md:h-10 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg>
+                         </div>
+                         <div>
+                             <h3 class="font-display font-bold text-lg md:text-3xl text-dark">LoFi Beats Studio</h3>
+                             <p class="text-xs md:text-sm text-dark/70 font-medium mt-1">500K Subscribers • Music Producer</p>
+                         </div>
+                         <div class="mt-4 sm:mt-0 sm:ml-auto">
+                            <button class="bg-dark text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wider hover:bg-white hover:text-dark transition-colors shadow-md">Kunjungi</button>
+                         </div>
+                     </div>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <!-- SERVICES LIST -->
-    <section id="services" class="py-20 px-6 md:px-12 item-3d mb-20">
+    <section id="portfolio" class="py-20 md:py-32 px-6 md:px-12 relative item-3d z-10">
+        <div class="max-w-screen-xl mx-auto w-full relative">
+            <h2 class="split-text text-reveal font-display font-black text-4xl sm:text-5xl md:text-6xl text-center tracking-tighter text-dark mb-16 relative">
+                portfolio <span class="absolute w-2 h-2 md:w-3 md:h-3 bg-accent rounded-full bottom-1 md:bottom-2 ml-1 md:ml-2"></span>
+            </h2>
+
+            <!-- Bento Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 auto-rows-[140px] sm:auto-rows-[200px] md:auto-rows-[250px]">
+                
+                <div onclick="openProject('CapCut Pro')" class="cursor-pointer col-span-2 md:col-span-1 rounded-[2rem] bg-card overflow-hidden group shadow-lg shadow-dark/5 relative border border-dark/5">
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center group-hover:scale-105 transition-transform duration-700"></div>
+                </div>
+
+                <div onclick="openProject('CapCut Pro')" class="cursor-pointer col-span-1 md:col-span-2 rounded-[2rem] bg-white overflow-hidden group shadow-lg shadow-dark/5 flex items-center justify-center p-4 relative border border-dark/5">
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center opacity-10 group-hover:scale-105 transition-transform duration-700"></div>
+                    <div class="relative z-10 text-center">
+                        <svg class="w-8 h-8 md:w-10 md:h-10 mx-auto text-accent mb-2 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        <h3 class="font-display font-bold text-lg md:text-2xl text-dark">Video Shorts</h3>
+                    </div>
+                </div>
+
+                <div onclick="openProject('DaVinci Resolve')" class="cursor-pointer col-span-1 md:col-span-1 rounded-[2rem] bg-accent overflow-hidden group shadow-lg shadow-dark/5 relative border border-dark/5">
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay opacity-60 group-hover:scale-105 transition-transform duration-700"></div>
+                </div>
+
+                <div onclick="openProject('Thumbnails')" class="cursor-pointer col-span-2 md:col-span-2 rounded-[2rem] bg-dark overflow-hidden group shadow-lg shadow-dark/5 p-6 md:p-8 flex flex-col justify-end relative border border-dark/5">
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center opacity-30 group-hover:scale-105 transition-transform duration-700"></div>
+                    <h3 class="font-display font-bold text-xl md:text-3xl text-white relative z-10 mb-1">YouTube<br>Thumbnails</h3>
+                    <p class="text-white/60 text-xs relative z-10">High CTR Designs</p>
+                </div>
+
+                <div onclick="openProject('Web Dev')" class="cursor-pointer col-span-2 md:col-span-2 shape-leaf bg-surfaceBlue overflow-hidden group shadow-lg shadow-dark/5 flex items-center justify-center relative min-h-[140px] border border-dark/5">
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay opacity-30 group-hover:scale-105 transition-transform duration-700"></div>
+                    <h3 class="absolute font-signature text-3xl md:text-4xl text-dark transform -rotate-6 z-10">Web Dev</h3>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-20 px-6 md:px-12 item-3d z-10 relative">
         <div class="max-w-screen-xl mx-auto">
             <h2 class="split-text text-reveal font-display font-black text-4xl md:text-6xl mb-12 uppercase tracking-tighter border-b-2 border-dark/10 pb-8 text-dark">Keahlian Saya .</h2>
             
             <div class="flex flex-col">
                 <!-- Service 1 -->
-                <div class="group flex flex-col md:flex-row items-start md:items-center justify-between py-8 border-b border-dark/10 hover:bg-white/30 hover:px-6 rounded-2xl transition-all cursor-pointer" onclick="openProject('CapCut Pro')">
+                <div class="group flex flex-col md:flex-row items-start md:items-center justify-between py-8 border-b border-dark/10 hover:bg-white/50 hover:px-6 rounded-2xl transition-all cursor-pointer" onclick="openProject('CapCut Pro')">
                     <div class="flex items-center gap-6 mb-4 md:mb-0">
                         <span class="text-sm font-mono text-dark/40 font-bold">01</span>
-                        <h3 class="font-display font-bold text-3xl md:text-4xl text-dark group-hover:text-accentHover transition-colors">CapCut Pro Editing</h3>
+                        <h3 class="font-display font-bold text-2xl md:text-4xl text-dark group-hover:text-accent transition-colors">CapCut Pro Editing</h3>
                     </div>
                     <div class="flex items-center gap-8 w-full md:w-auto justify-between md:justify-end">
                         <p class="text-sm text-dark/70 font-medium">Video Shorts & TikTok</p>
-                        <button class="w-24 border-2 border-dark/20 rounded-full py-2 text-xs font-bold uppercase tracking-wider text-dark group-hover:bg-dark group-hover:text-white transition-colors">Lihat</button>
+                        <button class="w-24 border border-dark/20 rounded-full py-2 text-xs font-bold uppercase tracking-wider text-dark group-hover:bg-dark group-hover:text-white transition-colors">Lihat</button>
                     </div>
                 </div>
 
                 <!-- Service 2 -->
-                <div class="group flex flex-col md:flex-row items-start md:items-center justify-between py-8 border-b border-dark/10 hover:bg-white/30 hover:px-6 rounded-2xl transition-all cursor-pointer" onclick="openProject('DaVinci Resolve')">
+                <div class="group flex flex-col md:flex-row items-start md:items-center justify-between py-8 border-b border-dark/10 hover:bg-white/50 hover:px-6 rounded-2xl transition-all cursor-pointer" onclick="openProject('DaVinci Resolve')">
                     <div class="flex items-center gap-6 mb-4 md:mb-0">
                         <span class="text-sm font-mono text-dark/40 font-bold">02</span>
-                        <h3 class="font-display font-bold text-3xl md:text-4xl text-dark group-hover:text-accentHover transition-colors">DaVinci Resolve</h3>
+                        <h3 class="font-display font-bold text-2xl md:text-4xl text-dark group-hover:text-accent transition-colors">DaVinci Resolve</h3>
                     </div>
                     <div class="flex items-center gap-8 w-full md:w-auto justify-between md:justify-end">
                         <p class="text-sm text-dark/70 font-medium">Video YouTube 16:9</p>
-                        <button class="w-24 border-2 border-dark/20 rounded-full py-2 text-xs font-bold uppercase tracking-wider text-dark group-hover:bg-dark group-hover:text-white transition-colors">Lihat</button>
+                        <button class="w-24 border border-dark/20 rounded-full py-2 text-xs font-bold uppercase tracking-wider text-dark group-hover:bg-dark group-hover:text-white transition-colors">Lihat</button>
                     </div>
                 </div>
 
                 <!-- Service 3 -->
-                <div class="group flex flex-col md:flex-row items-start md:items-center justify-between py-8 border-b border-dark/10 hover:bg-white/30 hover:px-6 rounded-2xl transition-all cursor-pointer" onclick="openProject('Thumbnails')">
+                <div class="group flex flex-col md:flex-row items-start md:items-center justify-between py-8 border-b border-dark/10 hover:bg-white/50 hover:px-6 rounded-2xl transition-all cursor-pointer" onclick="openProject('Thumbnails')">
                     <div class="flex items-center gap-6 mb-4 md:mb-0">
                         <span class="text-sm font-mono text-dark/40 font-bold">03</span>
-                        <h3 class="font-display font-bold text-3xl md:text-4xl text-dark group-hover:text-accentHover transition-colors">YouTube Thumbnails</h3>
+                        <h3 class="font-display font-bold text-2xl md:text-4xl text-dark group-hover:text-accent transition-colors">YouTube Thumbnails</h3>
                     </div>
                     <div class="flex items-center gap-8 w-full md:w-auto justify-between md:justify-end">
                         <p class="text-sm text-dark/70 font-medium">Berbasis Gambar High CTR</p>
-                        <button class="w-24 border-2 border-dark/20 rounded-full py-2 text-xs font-bold uppercase tracking-wider text-dark group-hover:bg-dark group-hover:text-white transition-colors">Lihat</button>
+                        <button class="w-24 border border-dark/20 rounded-full py-2 text-xs font-bold uppercase tracking-wider text-dark group-hover:bg-dark group-hover:text-white transition-colors">Lihat</button>
                     </div>
                 </div>
 
                 <!-- Service 4 -->
-                <div class="group flex flex-col md:flex-row items-start md:items-center justify-between py-8 border-b border-dark/10 hover:bg-white/30 hover:px-6 rounded-2xl transition-all cursor-pointer" onclick="openProject('Web Dev')">
+                <div class="group flex flex-col md:flex-row items-start md:items-center justify-between py-8 border-b border-dark/10 hover:bg-white/50 hover:px-6 rounded-2xl transition-all cursor-pointer" onclick="openProject('Web Dev')">
                     <div class="flex items-center gap-6 mb-4 md:mb-0">
                         <span class="text-sm font-mono text-dark/40 font-bold">04</span>
-                        <h3 class="font-display font-bold text-3xl md:text-4xl text-dark group-hover:text-accentHover transition-colors">Web Development</h3>
+                        <h3 class="font-display font-bold text-2xl md:text-4xl text-dark group-hover:text-accent transition-colors">Web Development</h3>
                     </div>
                     <div class="flex items-center gap-8 w-full md:w-auto justify-between md:justify-end">
                         <p class="text-sm text-dark/70 font-medium">Foto to Link & Music Player</p>
-                        <button class="w-24 border-2 border-dark/20 rounded-full py-2 text-xs font-bold uppercase tracking-wider text-dark group-hover:bg-dark group-hover:text-white transition-colors">Lihat</button>
+                        <button class="w-24 border border-dark/20 rounded-full py-2 text-xs font-bold uppercase tracking-wider text-dark group-hover:bg-dark group-hover:text-white transition-colors">Lihat</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER PROFESSIONAL -->
-    <footer id="contact" class="bg-dark text-white pt-20 pb-24 md:pb-10 relative overflow-hidden item-3d">
+    <section id="contact" class="py-20 md:py-32 px-6 md:px-12 bg-white border-t border-dark/5 relative item-3d z-10">
+        <div class="max-w-screen-xl mx-auto flex flex-col md:flex-row gap-12 justify-between items-center">
+            
+            <!-- Left Text -->
+            <div class="w-full md:w-1/2 text-center md:text-left">
+                <p class="text-accent font-bold uppercase tracking-widest text-sm mb-4">Let's Collaborate</p>
+                <h2 class="font-display font-black text-4xl md:text-6xl text-dark mb-6 tracking-tighter">Punya Proyek Video<br>atau Website?</h2>
+                <p class="text-dark/70 text-lg mb-8 max-w-md mx-auto md:mx-0">
+                    Jangan ragu untuk menghubungi saya. Mari diskusikan ide-ide kreatifmu dan ciptakan karya digital yang luar biasa bersama-sama.
+                </p>
+            </div>
+
+            <!-- Right Cards (Discord & IG) -->
+            <div class="w-full md:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Discord Card -->
+                <a href="#" class="bg-surfaceBlue rounded-3xl p-8 flex flex-col items-center justify-center text-center shadow-lg shadow-dark/5 hover:-translate-y-2 transition-transform group border border-white">
+                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 text-[#5865F2] shadow-md group-hover:scale-110 transition-transform">
+                        <!-- Discord SVG Icon -->
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-dark">Discord</h3>
+                    <p class="text-xs text-dark/60 font-medium mt-1">Chat & Diskusi</p>
+                </a>
+                
+                <!-- Instagram Card -->
+                <a href="https://instagram.com/kuroki" target="_blank" class="bg-lightAlt rounded-3xl p-8 flex flex-col items-center justify-center text-center shadow-lg shadow-dark/5 hover:-translate-y-2 transition-transform group border border-white">
+                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 text-[#E1306C] shadow-md group-hover:scale-110 transition-transform">
+                        <!-- Instagram SVG Icon -->
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-dark">Instagram</h3>
+                    <p class="text-xs text-dark/60 font-medium mt-1">@kuroki</p>
+                </a>
+            </div>
+            
+        </div>
+    </section>
+
+    <footer class="bg-dark text-white pt-20 pb-24 md:pb-10 relative overflow-hidden z-10">
         <div class="max-w-screen-2xl mx-auto w-full px-6 md:px-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                 <!-- Brand -->
-                <div class="col-span-1 md:col-span-2 cursor-pointer">
+                <div class="col-span-1 md:col-span-2 cursor-pointer" onclick="smoothScroll(event, 'home')">
                     <div class="flex gap-1 mb-6">
                         <div class="w-6 h-6 bg-accent rounded-full"></div>
                         <div class="w-6 h-6 bg-accent rounded-sm"></div>
@@ -369,7 +444,7 @@
                 <div>
                     <h4 class="font-display font-bold text-lg mb-6 uppercase tracking-wider text-accent">Quick Links</h4>
                     <ul class="flex flex-col gap-4 text-sm font-medium text-white/70">
-                        <li><a href="#" onclick="smoothScroll(event, 'home')" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#home" onclick="smoothScroll(event, 'home')" class="hover:text-white transition-colors">Home</a></li>
                         <li><a href="#about" onclick="smoothScroll(event, 'about')" class="hover:text-white transition-colors">About</a></li>
                         <li><a href="#portfolio" onclick="smoothScroll(event, 'portfolio')" class="hover:text-white transition-colors">Portfolio</a></li>
                         <li><a href="#services" onclick="smoothScroll(event, 'services')" class="hover:text-white transition-colors">Services</a></li>
@@ -401,26 +476,17 @@
         </div>
     </footer>
 
-    <!-- MODAL PROJECT SHOWCASE -->
     <div id="projectModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 md:p-8">
-        <!-- Backdrop -->
         <div class="absolute inset-0 bg-dark/80 backdrop-blur-sm" onclick="closeProject()"></div>
-        
-        <!-- Modal Content -->
-        <div class="bg-light relative z-10 w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
-            <!-- Header -->
+        <div class="bg-white relative z-10 w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
             <div class="flex justify-between items-center p-6 border-b border-dark/10 bg-white/50">
                 <h3 id="modalTitle" class="font-display font-bold text-2xl text-dark">Nama Project</h3>
                 <button onclick="closeProject()" class="text-dark/50 hover:text-dark p-2">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
-            
-            <!-- Body -->
             <div class="p-6 overflow-y-auto">
                 <p id="modalDesc" class="text-dark/80 font-medium mb-6">Deskripsi project akan muncul di sini.</p>
-                
-                <!-- Placeholder Image/Video Area -->
                 <div class="w-full bg-dark/5 rounded-2xl aspect-video flex items-center justify-center overflow-hidden relative border-2 border-white/50">
                     <div id="modalVisual" class="absolute inset-0 bg-cover bg-center"></div>
                     <div class="absolute inset-0 flex items-center justify-center bg-dark/10">
@@ -431,13 +497,12 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT -->
     <script>
-        // 3D Scroll Animation Logic
+        // 3D Scroll Animation Observer
         const observerOptions = {
             root: null,
             rootMargin: '0px',
-            threshold: 0.15 // Elemen akan muncul ketika 15% bagiannya terlihat di layar
+            threshold: 0.15 
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -450,35 +515,30 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.item-3d').forEach(item => {
+        document.querySelectorAll('.item-3d, .text-reveal').forEach(item => {
             observer.observe(item);
         });
 
-        // Observe text reveal elements
-        document.querySelectorAll('.text-reveal').forEach(item => {
-            observer.observe(item);
-        });
-
-        // Split text animation logic - SAFE WAY FOR HTML 
+        // Split text animation logic - Safe string builder
         document.querySelectorAll('.split-text').forEach(el => {
             const nodes = Array.from(el.childNodes);
             let newHTML = '';
             let letterIndex = 0;
             
             nodes.forEach(node => {
-                if (node.nodeType === 3) { // Text node
+                if (node.nodeType === 3) {
                     const text = node.textContent;
                     for (let i = 0; i < text.length; i++) {
                         const char = text[i];
                         if (char === ' ' || char === '\n') {
-                            newHTML += char; // Biarkan spasi alami
+                            newHTML += char; 
                         } else {
                             newHTML += `<span class="letter-reveal" style="transition-delay: ${letterIndex * 0.03}s">${char}</span>`;
                             letterIndex++;
                         }
                     }
                 } else {
-                    newHTML += node.outerHTML; // Pertahankan tag break <br>
+                    newHTML += node.outerHTML; 
                 }
             });
             
@@ -486,10 +546,9 @@
             observer.observe(el);
         });
 
-        // Trigger animasi untuk elemen yang sudah terlihat saat halaman dimuat
         setTimeout(() => window.dispatchEvent(new Event('scroll')), 100);
 
-        // ScrollSpy Logic (Active Navbar Indicator)
+        // Active Navbar Logic
         const sections = document.querySelectorAll('header, section');
         const desktopLinks = document.querySelectorAll('.desktop-nav-link');
         const mobileLinks = document.querySelectorAll('.mobile-nav-link');
@@ -512,14 +571,13 @@
             });
 
             mobileLinks.forEach(link => {
-                link.classList.remove('bg-white/60', 'text-accent', 'scale-110');
+                link.classList.remove('bg-white/80', 'text-accent', 'scale-110');
                 if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('bg-white/60', 'text-accent', 'scale-110');
+                    link.classList.add('bg-white/80', 'text-accent', 'scale-110');
                 }
             });
         });
 
-        // Smooth Scrolling Logic
         function smoothScroll(e, targetId) {
             e.preventDefault();
             const target = document.getElementById(targetId);
@@ -530,7 +588,7 @@
             }
         }
 
-        // Project Modal Data
+        // Project Data for Pop-ups
         const projects = {
             'CapCut Pro': {
                 title: 'Shorts & TikTok Edits',
@@ -559,7 +617,6 @@
         const modalDesc = document.getElementById('modalDesc');
         const modalVisual = document.getElementById('modalVisual');
 
-        // Modal Logic
         function openProject(projectName) {
             const data = projects[projectName];
             if(data) {
